@@ -1,0 +1,88 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div class="bgg">
+
+    <div class="div-center-c h80">
+
+      <div>
+        <ion-text color="light">
+          <h1 class="text-center">
+            <strong>ESCUELA DE DANZA ROSA AMERICA</strong>
+          </h1>
+
+        </ion-text>
+
+        <div *ngIf="!bl_register" class="div-center mv">
+          <img class="remove-white " src="https://kabaygroup.com/api/image/res.company/9/logo/" alt="">
+        </div>
+
+        <div *ngIf="!bl_register">
+          <ion-item>
+            <ion-input label="Email" labelPlacement="floating" type="email" [(ngModel)]="email"
+              placeholder="usuario@email" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"
+              placeholder="password" required></ion-input>
+          </ion-item>
+
+          <ion-button class="mv" (click)="ft_login()" expand="block">
+            Enviar
+          </ion-button>
+
+          <h3 class="text-center mv">Aun no estas registrado:
+            <a (click)="ft_register()">
+              Registrarse
+            </a>
+          </h3>
+        </div>
+
+        <div *ngIf="bl_register">
+          <ion-title color="primary">
+            <h1 class="text-center mb">
+              <strong>Registrarse</strong>
+            </h1>
+          </ion-title>
+
+          <ion-item>
+            <ion-input label="Nombre" labelPlacement="floating" type="text" [(ngModel)]="n_name" placeholder="Nombre"
+              required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Email" labelPlacement="floating" type="email" [(ngModel)]="n_email"
+              placeholder="usuario@Email" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="password" labelPlacement="floating" type="password" [(ngModel)]="n_password"
+              placeholder="Password" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Telefono" labelPlacement="floating" type="tel" inputmode="numeric" [(ngModel)]="n_phone"
+              placeholder="000-000-0000" maxlength="10" required></ion-input>
+          </ion-item>
+
+          <div class="mv">
+            <ion-button expand="block" color="danger" (click)=" ft_register()">
+              Cancelar
+            </ion-button>
+
+            <ion-button expand="block" (click)=" ft_signup()" type="submit">
+              Enviar
+            </ion-button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

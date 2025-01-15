@@ -1,0 +1,35 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>incribite</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div class="bgg">
+    <div class="div-center h80">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="text-center">Pre-inscribete</ion-card-title>
+          <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+        </ion-card-header>
+
+        <ion-card-content class="text-center mv">
+          <ion-text>
+            <h4><strong>Aun no tienes docentes o dependientes inscritos.</strong></h4>
+            <h2>Precione el boton <strong>(+)</strong> para pre-inscribir.</h2>
+          </ion-text>
+
+          <ion-label (click)="ft_goClass()">
+            <div class="mv">
+              <ion-button size="large" shape="round"> <span>+</span> </ion-button>
+            </div>
+
+            <h1>Click aquí para Pre-Inscribir Estudiante</h1>
+          </ion-label>
+
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+  </div>
+</ion-content>

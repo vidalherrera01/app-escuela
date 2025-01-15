@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-title slot="start" class="text-center">
+      <h2>Tienda para :</h2>
+      <h2>{{dataUser.sl_students}}</h2>
+    </ion-title>
+
+    <ion-avatar class="me-2" slot="end">
+      <img alt="student" src={{dataUser.avatar_image}} />
+    </ion-avatar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card class="text-center m-top" *ngFor="let item of this.dataUser.arr_products; let i = index">
+    <ion-card-header>
+      <ion-card-title>{{item.name}}</ion-card-title>
+      <ion-card-subtitle></ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid class="text-center">
+        <ion-row class="div-center">
+          <ion-col size="12"><img height="150" width="150" src={{item.default_image}}></ion-col>
+          <ion-col size="12"><strong>Precio: $</strong><ion-label color="danger">{{item.list_price}}</ion-label>
+          </ion-col>
+          <ion-col size="12"><ion-button id="present-alert-{{i}}">Comprar
+              Producto</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    <ion-alert trigger="present-alert-{{i}}" header="Quieres Comprar Este Producto! "
+      subHeader="{{item.name}} : RD${{item.list_price}}" [buttons]="alertButtons(item.id)"
+      (didDismiss)="setResult($event)"></ion-alert>
+  </ion-card>
+
+
+</ion-content>
+
+<app-footer />

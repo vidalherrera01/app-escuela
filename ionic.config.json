@@ -1,0 +1,7 @@
+{
+  "name": "v_provatoria",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
