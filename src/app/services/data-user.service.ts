@@ -18,5 +18,6 @@ export class DataUserService {
   arr_products: any[] = []
   arr_student_courses: any = null
   current_user: any
-
 }
+
+console.log('hola')
