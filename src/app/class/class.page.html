@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-avatar class="ms" slot="start">
+      <img alt="student" src={{dataUser.avatar_image}} />
+    </ion-avatar>
+
+    <ion-select slot="start" [(ngModel)]="dataUser.sl_students" interface="popover" label="" placeholder="Estudiante"
+      (ionChange)="ft_loadStudent()">
+      <ion-select-option *ngFor="let item of dataUser.arr_students; let i = index" value={{item.name}}>
+        {{item.name}}
+      </ion-select-option>
+    </ion-select>
+
+    <ion-button slot="end" color="danger" expand="clear" (click)="dataUser.closeSession()">Cerrar</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="bgg">
+    <ion-card *ngFor="let course of this.dataUser.arr_courses; let i = index">
+      <ion-card-header>
+        <ion-card-title class="text-center">{{course.name}}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid class="text-center">
+          <ion-row class="div-center">
+            <ion-col size="12"><img height="100" width="150" src="{{course.inscription_product.default_image}}"
+                alt=""></ion-col>
+            <ion-col size="12"><strong>Precio: RD$</strong><ion-text color="danger">
+                {{course.inscription_product.list_price}}
+              </ion-text></ion-col>
+            <ion-col size="12"><strong>Mensual: RD$</strong><ion-text color="danger">
+                {{course.monthly_product.list_price}}
+              </ion-text></ion-col>
+            <ion-col class="div-center-c" size="12">
+              <div>
+                <div>
+                  <ion-button *ngIf="!course.subscribed" expand="block"
+                    (click)="ft_addCourse(course.id)">Pre-inscribirme</ion-button>
+                </div>
+
+
+                <div *ngIf="dataUser.current_user">
+                  <div *ngFor="let student_course of dataUser.current_user.student_courses; let j = index">
+
+                    <div *ngFor="let current_sub_course of student_course.course; let k = index">
+                      <div *ngIf="current_sub_course.id == course.id">
+
+                        <div *ngIf="student_course.state == 'Borrador'">
+                          <ion-label color="primary" expand="block">
+                            <h1>En espera de aprovacion</h1>
+                          </ion-label>
+                        </div>
+
+                        <div>
+                          <ion-button expand="block" *ngIf="student_course.state == 'Aprobado'" color="success"
+                            (click)="ft_goProducts(course.id)">Productos
+                          </ion-button>
+                        </div>
+
+                        <div>
+                          <ion-button expand="block" *ngIf="student_course.state == 'Aprobado'"
+                            (click)="ft_get_courses_item(course)" (click)="setOpen()">Horarios</ion-button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-modal [isOpen]="isModalOpen">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title slot="end">Horario</ion-title>
+            <ion-buttons slot="start">
+              <ion-button color="danger" (click)="setOpen()">Atras</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+
+          <div class="text-center">
+            <ion-item class="mv">
+              <h1>
+                {{dataUser.arr_student_courses.name}}
+              </h1>
+            </ion-item>
+            <ion-item class="mv" *ngFor=" let item of dataUser.arr_student_courses.schedules; let i=index">
+              <h3 class="mv">
+                {{item.name}}
+              </h3>
+            </ion-item>
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-content>
+
+<app-footer />

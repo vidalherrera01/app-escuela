@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div *ngIf="dataUser.arr_students.length > 0">
+      <ion-button slot="start" (click)="dataUser.ft_back()" color="medium">Atras</ion-button>
+    </div>
+    <ion-title slot="end">Registrar Estudiante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div>
+    <div>
+      <div>
+        <h3>Nombre y foto del estudiante</h3>
+      </div>
+      <ion-item>
+        <ion-input label="Nombre" labelPlacement="floating" type="text" [(ngModel)]="name_student" placeholder="Nombre"
+          required></ion-input>
+      </ion-item>
+
+      <div class="div-center-2">
+        <div>
+          <h2>Foto de perfil</h2>
+          <div class="img mv" *ngIf="profile">
+            <img style="margin: auto;" width="160" height="200" [src]="profilePhoto" alt="profile">
+          </div>
+        </div>
+
+        <ion-button color="secondary" (click)="ft_photo_profile()">Tomar Foto</ion-button>
+      </div>
+
+
+      <div>
+        <h3>Fecha de nacimiento</h3>
+      </div>
+
+      <ion-item>
+        <ion-grid>
+          <ion-row class="div-center">
+
+            <ion-col size="2">
+              <ion-input label="Dia" inputmode="numeric" maxlength="2" labelPlacement="floating" [(ngModel)]="date_day"
+                placeholder="Dia" required>
+              </ion-input>
+            </ion-col>
+
+            <ion-col size="3">
+              <ion-select style="position: relative; top: 3px;" [(ngModel)]="date_month" interface="popover"
+                placeholder="Mes">
+
+                <ion-select-option value="1">Enero</ion-select-option>
+                <ion-select-option value="2">Febrero</ion-select-option>
+                <ion-select-option value="3">Marzo</ion-select-option>
+                <ion-select-option value="4">Abril</ion-select-option>
+                <ion-select-option value="5">Mayo</ion-select-option>
+                <ion-select-option value="6">Junio</ion-select-option>
+                <ion-select-option value="7">Julio</ion-select-option>
+                <ion-select-option value="8">Agosto</ion-select-option>
+                <ion-select-option value="9">Septiembre</ion-select-option>
+                <ion-select-option value="10">Octubre</ion-select-option>
+                <ion-select-option value="11">Noviembre</ion-select-option>
+                <ion-select-option value="12">Diciembre</ion-select-option>
+
+              </ion-select>
+            </ion-col>
+
+            <ion-col size="2">
+              <ion-input label="Año" inputmode="numeric" maxlength="4" labelPlacement="floating" [(ngModel)]="date_year"
+                placeholder="Año" required>
+              </ion-input>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+
+      <div>
+        <h3>Datos de los padres</h3>
+      </div>
+      <ion-item>
+        <ion-input label="Nombre de la madre" labelPlacement="floating" [(ngModel)]="mother"
+          placeholder="Nombre de la madre@Email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Nombre de la padre" labelPlacement="floating" [(ngModel)]="father"
+          placeholder="Nombre de la padre" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Telefono" labelPlacement="floating" type="tel" inputmode="numeric" [(ngModel)]="tel"
+          placeholder="000-000-0000" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Celular" labelPlacement="floating" type="tel" inputmode="numeric" [(ngModel)]="phone"
+          placeholder="000-000-0000" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Alergias" labelPlacement="floating" [(ngModel)]="allergies_or_illness" placeholder="alergias"
+          required></ion-input>
+      </ion-item>
+
+      <div class="text-center mv">
+        <ion-button expand="block" (click)="ft_register()">
+          Agregar Estudiante
+        </ion-button>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>
+
+<div *ngIf="dataUser.arr_students.length > 0">
+  <app-footer />
+</div>
