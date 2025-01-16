@@ -1,14 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-
-    <ion-title slot="start" class="text-center">
-      <h2>Tienda para :</h2>
+    <ion-button (click)="dataUser.ft_back()" color="medium">Atras</ion-button>
+    <ion-title slot="end">
       <h2>{{dataUser.sl_students}}</h2>
     </ion-title>
-
-    <ion-avatar class="me-2" slot="end">
+    <ion-avatar slot="end">
       <img alt="student" src={{dataUser.avatar_image}} />
     </ion-avatar>
+
   </ion-toolbar>
 </ion-header>
 

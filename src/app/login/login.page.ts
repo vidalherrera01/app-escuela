@@ -5,6 +5,11 @@ import { IonContent, IonTitle, IonCheckbox, IonItem, IonButton, IonInput, IonTex
 import { Router, RouterModule } from '@angular/router';
 import { DataUserService } from '../services/data-user.service';
 
+interface User {
+  email: string,
+  pass: string
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -12,10 +17,55 @@ import { DataUserService } from '../services/data-user.service';
   standalone: true,
   imports: [IonImg, RouterModule, IonText, IonCheckbox, IonInput, IonButton, IonItem, IonContent, IonTitle, CommonModule, FormsModule]
 })
-export class LoginPage {
+
+export class LoginPage implements OnInit {
 
   ft_register() {
     this.bl_register = !this.bl_register
+  }
+
+  bl_checkbox: boolean = false;
+  false_checkbox: boolean = false;
+
+  isCheck() {
+
+    let user: User = {
+      email: this.email,
+      pass: this.password
+    }
+
+    if (this.bl_checkbox) {
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('check', 'true');
+    } else {
+      localStorage.removeItem('user');
+      localStorage.setItem('check', 'false');
+    }
+
+  }
+
+  loadLocal() {
+    let lc_check = localStorage.getItem('check') as string;
+    let lc_user = localStorage.getItem('user') as string;
+    this.bl_checkbox = JSON.parse(lc_check);
+
+    if (lc_check == null) {
+      this.false_checkbox = false;
+      this.bl_checkbox = false;
+      localStorage.setItem('check', 'false');
+      console.log(this.false_checkbox);
+    } else {
+      this.false_checkbox = JSON.parse(lc_check);
+      console.log("falsecheck ", this.false_checkbox)
+    }
+
+    if (lc_user != null) {
+      let var_user: User = JSON.parse(lc_user);
+
+      this.email = var_user.email;
+      this.password = var_user.pass;
+      if (this.bl_checkbox) this.ft_login();
+    }
   }
 
   email: string = ""
@@ -129,4 +179,11 @@ export class LoginPage {
     private router: Router
   ) { }
 
+  ngOnInit() {
+    // this.email = "papa5"
+    // this.password = "123"
+    // this.ft_login()
+
+    this.loadLocal()
+  }
 }

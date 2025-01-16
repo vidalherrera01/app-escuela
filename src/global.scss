@@ -53,16 +53,16 @@
 
 .div-center-c {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .media {
     width: 50%;
 }
 
-.h80 {
+.h100 {
     height: 100vh;
 }
 

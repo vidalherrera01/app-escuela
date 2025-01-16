@@ -194,6 +194,11 @@ export class PurchasePage implements OnInit {
     };
   };
 
+  ft_q(item: any) {
+    console.log("el padre", item)
+    // console.log("los clases", item.student_courses)
+  }
+
   constructor(
     public dataUser: DataUserService,
     private router: Router
@@ -204,7 +209,6 @@ export class PurchasePage implements OnInit {
     console.log(this.dataUser.arr_students)
     this.dataUser.arr_students.forEach((est) => {
       est.product_groups = this.groupProductsByInvoiceId(est).productos_agrupados_por_invoice_id
-      console.log("__________________ progs ")
       console.log(est.product_groups)
     })
     this.ft_save_idVoucher()

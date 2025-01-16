@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Registrar Estudiante</ion-title>
+    <div *ngIf="dataUser.arr_students.length > 0">
+      <ion-button slot="start" (click)="dataUser.ft_back()" color="medium">Atras</ion-button>
+    </div>
+    <ion-title slot="end">Registrar Estudiante</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,15 +18,17 @@
           required></ion-input>
       </ion-item>
 
-      <div class="div-center">
+      <div class="div-center-2">
         <div>
           <h2>Foto de perfil</h2>
           <div class="img mv" *ngIf="profile">
             <img style="margin: auto;" width="160" height="200" [src]="profilePhoto" alt="profile">
           </div>
-          <ion-button color="secondary" (click)="ft_photo_profile()">Tomar Foto</ion-button>
         </div>
+
+        <ion-button color="secondary" (click)="ft_photo_profile()">Tomar Foto</ion-button>
       </div>
+
 
       <div>
         <h3>Fecha de nacimiento</h3>
@@ -63,7 +68,6 @@
               <ion-input label="Año" inputmode="numeric" maxlength="4" labelPlacement="floating" [(ngModel)]="date_year"
                 placeholder="Año" required>
               </ion-input>
-
             </ion-col>
 
           </ion-row>
@@ -100,13 +104,12 @@
       </ion-item>
 
       <div class="text-center mv">
-        <ion-button (click)="ft_register()">
+        <ion-button expand="block" (click)="ft_register()">
           Agregar Estudiante
         </ion-button>
       </div>
 
     </div>
-    <div style="height: 200px;"></div>
   </div>
 
 </ion-content>

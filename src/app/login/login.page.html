@@ -1,11 +1,10 @@
 <ion-content [fullscreen]="true">
-  <div>
-    <div class="div-center m-vt">
-      <ion-img src="../../assets/logo.jpeg">
-      </ion-img>
-    </div>
+  <div class="div-center-c h100">
+    <ion-item class="m-vt">
+      <ion-img src="../../assets/logo.jpeg"></ion-img>
+    </ion-item>
 
-    <div>
+    <div *ngIf="!false_checkbox">
       <div *ngIf="!bl_register">
         <ion-item>
           <ion-input label="Email" labelPlacement="floating" type="email" [(ngModel)]="email"
@@ -16,10 +15,10 @@
           <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"
             placeholder="password" required></ion-input>
         </ion-item>
-        <!-- 
+
         <ion-item>
-          <ion-checkbox>Recordar Contraseña</ion-checkbox>
-        </ion-item> -->
+          <ion-checkbox (ionChange)="isCheck()" [(ngModel)]="bl_checkbox">Recordar Contraseña</ion-checkbox>
+        </ion-item>
 
         <ion-button class="mv" (click)="ft_login()" expand="block">
           Enviar
