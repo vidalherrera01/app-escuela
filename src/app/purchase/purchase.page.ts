@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonGrid, IonCol, IonRow, IonModal, IonButtons, IonImg, IonLabel, IonText } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonGrid, IonCol, IonRow, IonModal, IonButtons, IonImg, IonLabel, IonText, IonListHeader } from '@ionic/angular/standalone';
 import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from "../components/footer/footer.component";
 import { DataUserService } from '../services/data-user.service';
@@ -12,7 +12,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   templateUrl: './purchase.page.html',
   styleUrls: ['./purchase.page.scss'],
   standalone: true,
-  imports: [IonText, IonLabel, IonItem, IonImg, IonButtons, IonModal, IonRow, IonCol, IonGrid, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonList, IonButton, RouterModule, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, FooterComponent]
+  imports: [IonListHeader, IonText, IonLabel, IonItem, IonImg, IonButtons, IonModal, IonRow, IonCol, IonGrid, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonList, IonButton, RouterModule, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, FooterComponent]
 })
 
 export class PurchasePage implements OnInit {
@@ -29,8 +29,7 @@ export class PurchasePage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  async ft_photoVouchers(id_voucher: number, arr: any) {
-    console.log(arr)
+  async ft_photoVouchers(id_voucher: number) {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
@@ -169,6 +168,32 @@ export class PurchasePage implements OnInit {
 
   }
 
+  getDateInString(_timestamp: any) {
+    return new Date(_timestamp).toLocaleDateString()
+  }
+
+  groupProductsByInvoiceId(data: any) {
+    const grouped = data.products.reduce((acc: any[], product: any) => {
+      const existingGroup = acc.find((group: any) => group.invoice.id === product.invoice.id);
+
+      if (existingGroup) {
+        existingGroup.products.push(product);
+      } else {
+        acc.push({
+          invoice: product.invoice,
+          products: [product],
+        });
+      }
+
+      return acc;
+    }, []);
+
+    return {
+      ...data,
+      productos_agrupados_por_invoice_id: grouped,
+    };
+  };
+
   constructor(
     public dataUser: DataUserService,
     private router: Router
@@ -177,6 +202,11 @@ export class PurchasePage implements OnInit {
   ngOnInit() {
     console.clear()
     console.log(this.dataUser.arr_students)
+    this.dataUser.arr_students.forEach((est) => {
+      est.product_groups = this.groupProductsByInvoiceId(est).productos_agrupados_por_invoice_id
+      console.log("__________________ progs ")
+      console.log(est.product_groups)
+    })
     this.ft_save_idVoucher()
   }
 

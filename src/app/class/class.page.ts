@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonToolbar, IonSelect, IonSelectOption, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonText, IonAvatar, IonModal, IonTitle, IonButtons, IonItem, Platform, IonSpinner } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonToolbar, IonSelect, IonSelectOption, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonText, IonAvatar, IonModal, IonTitle, IonButtons, IonItem, Platform, IonSpinner, IonLabel } from '@ionic/angular/standalone';
 import { DataUserService } from '../services/data-user.service';
 import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from "../components/footer/footer.component";
@@ -11,7 +11,7 @@ import { FooterComponent } from "../components/footer/footer.component";
   templateUrl: './class.page.html',
   styleUrls: ['./class.page.scss'],
   standalone: true,
-  imports: [IonSpinner, IonItem, IonButtons, IonTitle, IonModal, IonAvatar, IonText, IonCol, IonRow, IonGrid, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonButton, RouterModule, IonContent, IonSelect, IonSelectOption, IonHeader, IonToolbar, CommonModule, FormsModule, FooterComponent]
+  imports: [IonLabel, IonSpinner, IonItem, IonButtons, IonTitle, IonModal, IonAvatar, IonText, IonCol, IonRow, IonGrid, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonButton, RouterModule, IonContent, IonSelect, IonSelectOption, IonHeader, IonToolbar, CommonModule, FormsModule, FooterComponent]
 })
 export class ClassPage implements OnInit {
 
@@ -32,6 +32,10 @@ export class ClassPage implements OnInit {
     this.isModalOpen = !this.isModalOpen
   }
 
+  closeSession() {
+    this.router.navigate(['/login']);
+  }
+
   ft_loadStudent() {
     // console.clear()
 
@@ -41,6 +45,7 @@ export class ClassPage implements OnInit {
         this.dataUser.sl_students = item.name
         this.dataUser.id_students = item.id
         this.dataUser.avatar_image = item.image
+        this.dataUser.current_user = item
         // this.dataUser.arr_student_courses = item.arr_student_courses
         // console.log(this.dataUser.arr_student_courses)
         // console.log(item, "soy arrEstudiante")
@@ -55,12 +60,15 @@ export class ClassPage implements OnInit {
       this.dataUser.sl_students = this.dataUser.arr_students[last].name
       this.dataUser.id_students = this.dataUser.arr_students[last].id
       this.dataUser.avatar_image = this.dataUser.arr_students[last].image
+      this.dataUser.current_user = this.dataUser.arr_students[last]
+
       // this.dataUser.arr_student_courses = this.dataUser.arr_students[last].arr_student_courses
       // console.log(this.dataUser.arr_students[last], 'soy arr Estudent')
     }
 
     this.ft_get_courses()
   }
+
 
   async ft_get_courses() {
     const urlCourses: string = `https://kabaygroup.com/api/school/student/${this.dataUser.id_students}/courses`
@@ -155,6 +163,7 @@ export class ClassPage implements OnInit {
   }
 
   ngOnInit() {
+    console.clear()
     this.ft_loadStudent()
     console.log(
       this.dataUser.arr_students,

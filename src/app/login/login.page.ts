@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { IonContent, IonTitle, IonItem, IonButton, IonInput, IonText } from '@ionic/angular/standalone';
+import { IonContent, IonTitle, IonCheckbox, IonItem, IonButton, IonInput, IonText, IonImg } from '@ionic/angular/standalone';
 import { Router, RouterModule } from '@angular/router';
 import { DataUserService } from '../services/data-user.service';
 
@@ -10,9 +10,9 @@ import { DataUserService } from '../services/data-user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [RouterModule, IonText, IonInput, IonButton, IonItem, IonContent, IonTitle, CommonModule, FormsModule]
+  imports: [IonImg, RouterModule, IonText, IonCheckbox, IonInput, IonButton, IonItem, IonContent, IonTitle, CommonModule, FormsModule]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   ft_register() {
     this.bl_register = !this.bl_register
@@ -129,9 +129,4 @@ export class LoginPage implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-    // this.email = "papa5"
-    // this.password = "123"
-    // this.ft_login()
-  }
 }

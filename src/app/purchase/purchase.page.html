@@ -59,8 +59,7 @@
             <ion-col size="6">
               <div *ngIf="student_courses.state == 'Aprobado'">
                 <ion-item *ngFor="let invoices of student_courses.invoices; let i = index" lines="none">
-                  <ion-button fill="clear" (click)="ft_photoVouchers(invoices.id, invoices)"> <img width="30"
-                      height="30"
+                  <ion-button fill="clear" (click)="ft_photoVouchers(invoices.id)"> <img width="30" height="30"
                       src="https://cdn-icons-png.freepik.com/256/10068/10068678.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
                       alt=""> </ion-button>
                   <ion-button fill="clear" (click)="ft_seeVoucher(invoices.id)"> <img width="30" height="30"
@@ -75,47 +74,46 @@
             </ion-col>
           </ion-row>
 
-          <ion-row *ngFor="let products of item.products; let i = index">
+          <ion-row *ngFor="let group_product of item.product_groups; let i = index">
             <ion-col size="12">
-              <ion-grid *ngIf="products.invoices.length > 0">
+              <ion-grid *ngIf="group_product.invoice">
                 <ion-row>
-                  <ion-col size="6">
+                  <ion-col size="12">
                     <h1>Productos</h1>
-                  </ion-col>
-                  <ion-col size="6">
-                    <h1>Voucher</h1>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </ion-col>
 
-            <ion-col size="6">
-              <ion-list *ngIf="products.invoices.length > 0">
-                <ion-item>
-                  <div>
-                    <ion-label> {{products.name}}
-                      <ion-text color="danger"> RD${{products.product.list_price}}</ion-text>
-                    </ion-label>
-                  </div>
+
+            <ion-col size="12" *ngIf="group_product.invoice">
+              <ion-label color="success"> RD${{group_product.invoice.amount_total}}
+                <ion-text>{{getDateInString(group_product.invoice.invoice_date)}}</ion-text>
+              </ion-label>
+              <div>
+
+                <ion-button fill="clear" (click)="ft_photoVouchers(group_product.invoice.id)"> <img width="30"
+                    height="30"
+                    src="https://cdn-icons-png.freepik.com/256/10068/10068678.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
+                    alt=""> </ion-button>
+                <ion-button fill="clear" (click)="ft_seeVoucher(group_product.invoice.id)"> <img width="30" height="30"
+                    src="https://cdn-icons-png.freepik.com/256/10977/10977572.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
+                    alt=""> </ion-button>
+                <ion-button [download]="group_product.invoice.download_url" fill="clear"> <img width="30" height="30"
+                    src="https://cdn-icons-png.freepik.com/256/10065/10065777.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
+                    alt=""> </ion-button>
+              </div>
+
+              <ion-list>
+                <ion-item *ngFor="let product of group_product.products; let i = index">
+                  <ion-label> {{product.product.name}}
+                    <ion-text color="danger"> RD${{product.product.list_price}}</ion-text>
+                  </ion-label>
                 </ion-item>
               </ion-list>
+
             </ion-col>
-            <ion-col size="6">
-              <div *ngIf="products.invoices.length > 0">
-                <ion-item *ngFor="let invoices of products.invoices; let i = index" lines="none">
-                  <ion-button fill="clear" (click)="ft_photoVouchers(invoices.id, invoices)"> <img width="30"
-                      height="30"
-                      src="https://cdn-icons-png.freepik.com/256/10068/10068678.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
-                      alt=""> </ion-button>
-                  <ion-button fill="clear" (click)="ft_seeVoucher(invoices.id)"> <img width="30" height="30"
-                      src="https://cdn-icons-png.freepik.com/256/10977/10977572.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
-                      alt=""> </ion-button>
-                  <ion-button [download]="invoices.download_url" fill="clear"> <img width="30" height="30"
-                      src="https://cdn-icons-png.freepik.com/256/10065/10065777.png?ga=GA1.1.1686072600.1729371214&semt=ais_hybrid"
-                      alt=""> </ion-button>
-                </ion-item>
-              </div>
-            </ion-col>
+
           </ion-row>
         </ion-grid>
       </ion-card-content>
